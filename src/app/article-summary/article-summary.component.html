@@ -1,0 +1,25 @@
+<div class="summary-container">
+
+  <div class="summary-main">
+    <div class="summary-content">
+      <div class="rating-block" [ngStyle]="{ 'background-color': getColorByRating(selectedSummary.points) }">
+        {{ selectedSummary.points }}
+      </div>
+      <h3 class="summary-title">{{ selectedSummary.cardName }}</h3>
+      <p>{{ selectedSummary.cardData }}</p>
+    </div>
+  </div>
+
+  <div class="summary-side">
+    <div class="summary-side-item" *ngFor="let card of summary">
+      <div class="summary-header" (mouseenter)="onMouseEnter(card.cardName)" (mouseleave)="onMouseEnter(card.cardName)"
+        [class.active]="card.cardName === selectedSummaryId">
+        <div class="rating-block" [ngStyle]="{ 'background-color': getColorByRating(card.points) }">
+          {{ card.points }}
+        </div>
+        <h3 class="summary-title">{{ card.cardName }}</h3>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,11 @@
+<div class="table-of-contents">
+  <h3>Table of Contents</h3>
+  <ul>
+    <li *ngFor="let section of tableOfContents">
+      <a href="#section-{{ tableOfContents.indexOf(section) }}" [class.active]="section === activeSection"
+        (click)="selectSection(section); $event.preventDefault()">
+        {{ section }}
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,26 @@
+<div class="sidenav-container">
+  <div class="mobile-menu" [ngClass]="{'open': isSidebarOpen}">
+    <div class="curtain-header">
+      <h2>News Categories</h2>
+      <button mat-icon-button class="close-button" (click)="toggleSidebar()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="menu-content">
+      <mat-form-field appearance="outline" class="search-bar">
+        <mat-label>поиск</mat-label>
+        <input matInput type="text" placeholder="Поиск" />
+        <button mat-icon-button matSuffix>
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <ul class="category-list">
+        <li *ngFor="let category of categories" (click)="selectCategory(category)">
+          {{ category.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

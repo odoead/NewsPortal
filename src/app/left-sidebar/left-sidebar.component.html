@@ -1,0 +1,8 @@
+<aside class="left-sidebar">
+  <ul class="category-list">
+    <li *ngFor="let category of categories" [class.active]="activeCategory === category.slug"
+      (click)="selectCategory(category)">
+      {{ category.name }}
+    </li>
+  </ul>
+</aside>

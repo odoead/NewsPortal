@@ -1,0 +1,31 @@
+<div class="search-container">
+
+  <h1 *ngIf="currentMode === 'search'">
+    Search Results for "{{ searchQuery }}"
+  </h1>
+  <h1 *ngIf="currentMode === 'category'">
+    {{ currentCategory | titlecase }} Articles
+  </h1>
+
+  <div class="articles-grid">
+    <app-article-poster-item *ngFor="let article of articles" [article]="article"></app-article-poster-item>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
+      &lt;
+    </button>
+
+    <ng-container *ngFor="let page of pages; let i = index">
+      <span *ngIf="i > 0 && pages[i] !== pages[i - 1] + 1">...</span>
+      <button [class.active]="page === currentPage" (click)="goToPage(page)">
+        {{ page }}
+      </button>
+    </ng-container>
+
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+      &gt;
+    </button>
+  </div>
+
+</div>

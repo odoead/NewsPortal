@@ -1,0 +1,27 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &.mobile {
+    .content-container {
+      flex-direction: column;
+    }
+
+    .main-content {
+      width: 100%;
+      /* max-width: calc(100%-550px );*/
+    }
+  }
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+}

@@ -1,0 +1,16 @@
+<aside class="right-sidebar">
+  <h2>Popular Articles</h2>
+
+
+  <ul class="popular-articles">
+    <li *ngFor="let article of popularArticles" class="article-item">
+      <div class="article-image">
+        <img [src]="article.image" [alt]="article.name">
+      </div>
+      <div class="article-info">
+        <h3 class="article-title">{{ article.name }}</h3>
+        <p class="article-date">{{ article.date | date }}</p>
+      </div>
+    </li>
+  </ul>
+</aside>

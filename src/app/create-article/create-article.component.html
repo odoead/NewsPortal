@@ -1,0 +1,568 @@
+<div *ngIf="articleForm" class="article-form-container">
+    <h1>Create New Article</h1>
+
+    <form [formGroup]="articleForm" #formDirective="ngForm" (ngSubmit)="onSubmit()" class="article-form">
+        <!--<div formGroupName="articleForm">-->
+        <!-- Basic article info -->
+        <div class="form-section">
+            <h2>Basic Information</h2>
+            <div class="form-content">
+                <div class="form-row">
+                    <div class="form-field full-width">
+                        <label for="title">Article Title</label>
+                        <input id="title" type="text" formControlName="title" placeholder="Enter article title">
+                        <div class="error-message"
+                            *ngIf="articleForm.get('title')?.invalid && articleForm.get('title')?.touched">
+                            <span *ngIf="articleForm.get('title')?.hasError('required')">Title is required</span>
+                            <span *ngIf="articleForm.get('title')?.hasError('minlength')">Title must be at least 5
+                                characters</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field full-width">
+                        <label for="image">Header Image URL</label>
+                        <input id="image" type="text" formControlName="image" placeholder="Enter image URL">
+                        <div class="error-message"
+                            *ngIf="articleForm.get('image')?.invalid && articleForm.get('image')?.touched">
+                            <span *ngIf="articleForm.get('image')?.hasError('required')">Header image URL is
+                                required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row two-col">
+                    <div class="form-field">
+                        <label for="date">Publication Date</label>
+                        <input id="date" type="date" formControlName="date">
+                        <div class="error-message"
+                            *ngIf="articleForm.get('date')?.invalid && articleForm.get('date')?.touched">
+                            <span *ngIf="articleForm.get('date')?.hasError('required')">Date is required</span>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="category">Category</label>
+                        <input id="category" type="text" formControlName="category" placeholder="Enter category">
+                        <div class="error-message"
+                            *ngIf="articleForm.get('category')?.invalid && articleForm.get('category')?.touched">
+                            <span *ngIf="articleForm.get('category')?.hasError('required')">Category is
+                                required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="popularity">Popularity (0-10)</label>
+                        <input id="popularity" type="number" formControlName="popularity" min="0" max="10" step="0.1">
+                        <div class="error-message"
+                            *ngIf="articleForm.get('popularity')?.invalid && articleForm.get('popularity')?.touched">
+                            <span *ngIf="articleForm.get('popularity')?.hasError('required') || 
+                            articleForm.get('popularity')?.hasError('min') || 
+                            articleForm.get('popularity')?.hasError('max')">
+                                Value should be between 0 and 10
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tags Section -->
+        <div class="form-section">
+            <h2>Tags</h2>
+            <div class="form-content">
+                <div formArrayName="tags" cdkDropList (cdkDropListDropped)="dropTag($event)">
+                    <div *ngFor="let tagControl of tagsArray.controls; let i = index" [formGroupName]="i"
+                        class="dynamic-item" cdkDrag>
+                        <div class="drag-handle" cdkDragHandle>
+                            <span class="material-icons">drag_indicator</span>
+                        </div>
+
+                        <div class="form-field">
+                            <label [for]="'tag-' + i">Tag</label>
+                            <input [id]="'tag-' + i" type="text" formControlName="tag" placeholder="Enter tag">
+                            <div class="error-message"
+                                *ngIf="tagControl.get('tag')?.invalid && tagControl.get('tag')?.touched">
+                                <span *ngIf="tagControl.get('tag')?.hasError('required')">Tag is required</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="icon-button delete-button" (click)="removeTag(i)"
+                            [disabled]="tagsArray.length <= 1">
+                            <span class="material-icons">delete</span>
+                        </button>
+                    </div>
+
+                    <button type="button" class="add-button" (click)="addTag()">
+                        <span class="material-icons">add</span> Add Tag
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Author Info Section -->
+        <div class="form-section" formGroupName="authorInfo">
+            <h2>Author Information</h2>
+            <div class="form-content">
+                <div class="form-row">
+                    <div class="form-field full-width">
+                        <label for="author-name">Author Name</label>
+                        <input id="author-name" type="text" formControlName="name" placeholder="Enter author name">
+                        <div class="error-message"
+                            *ngIf="articleForm.get('authorInfo.name')?.invalid && articleForm.get('authorInfo.name')?.touched">
+                            <span *ngIf="articleForm.get('authorInfo.name')?.hasError('required')">Author name is
+                                required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field full-width">
+                        <label for="author-image">Author Image URL</label>
+                        <input id="author-image" type="text" formControlName="image"
+                            placeholder="Enter author image URL">
+                        <div class="error-message"
+                            *ngIf="articleForm.get('authorInfo.image')?.invalid && articleForm.get('authorInfo.image')?.touched">
+                            <span *ngIf="articleForm.get('authorInfo.image')?.hasError('required')">Author image URL
+                                is
+                                required</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field full-width">
+                        <label for="author-description">Author Description</label>
+                        <textarea id="author-description" formControlName="description"
+                            placeholder="Enter author description" rows="3"></textarea>
+                        <div class="error-message"
+                            *ngIf="articleForm.get('authorInfo.description')?.invalid && articleForm.get('authorInfo.description')?.touched">
+                            <span *ngIf="articleForm.get('authorInfo.description')?.hasError('required')">Author
+                                description is required</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table of Contents Section -->
+        <div class="form-section">
+            <h2>Table of Contents</h2>
+            <div class="form-content">
+                <div formArrayName="tableOfContents" cdkDropList (cdkDropListDropped)="dropSection($event)">
+                    <div *ngFor="let sectionControl of tableOfContentsArray.controls; let i = index" [formGroupName]="i"
+                        class="dynamic-item" cdkDrag>
+                        <div class="drag-handle" cdkDragHandle>
+                            <span class="material-icons">drag_indicator</span>
+                        </div>
+
+                        <div class="form-field">
+                            <label [for]="'section-' + i">Section Title</label>
+                            <input [id]="'section-' + i" type="text" formControlName="section"
+                                placeholder="Enter section title">
+                            <div class="error-message"
+                                *ngIf="sectionControl.get('section')?.invalid && sectionControl.get('section')?.touched">
+                                <span *ngIf="sectionControl.get('section')?.hasError('required')">Section title is
+                                    required</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="icon-button delete-button" (click)="removeSection(i)"
+                            [disabled]="tableOfContentsArray.length <= 1">
+                            <span class="material-icons">delete</span>
+                        </button>
+                    </div>
+
+                    <button type="button" class="add-button" (click)="addSection()">
+                        <span class="material-icons">add</span> Add Section
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Cards Section -->
+        <div class="form-section">
+            <h2>Summary Cards</h2>
+            <div class="form-content">
+                <div formArrayName="summary" cdkDropList (cdkDropListDropped)="dropSummary($event)">
+                    <div *ngFor="let summaryControl of summaryArray.controls; let i = index" [formGroupName]="i"
+                        class="dynamic-item-large" cdkDrag>
+                        <div class="drag-handle" cdkDragHandle>
+                            <span class="material-icons">drag_indicator</span>
+                        </div>
+
+                        <div class="form-row three-col">
+                            <div class="form-field">
+                                <label [for]="'summary-points-' + i">Points (0-10)</label>
+                                <input [id]="'summary-points-' + i" type="number" formControlName="points" min="0"
+                                    max="10" step="0.1">
+                                <div class="error-message"
+                                    *ngIf="summaryControl.get('points')?.invalid && summaryControl.get('points')?.touched">
+                                    <span *ngIf="summaryControl.get('points')?.hasError('required') || 
+                                summaryControl.get('points')?.hasError('min') || 
+                                summaryControl.get('points')?.hasError('max')">
+                                        Value should be between 0 and 10
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-field">
+                                <label [for]="'summary-name-' + i">Card Name</label>
+                                <input [id]="'summary-name-' + i" type="text" formControlName="cardName"
+                                    placeholder="Enter card name">
+                                <div class="error-message"
+                                    *ngIf="summaryControl.get('cardName')?.invalid && summaryControl.get('cardName')?.touched">
+                                    <span *ngIf="summaryControl.get('cardName')?.hasError('required')">Card name is
+                                        required</span>
+                                </div>
+                            </div>
+
+                            <button type="button" class="icon-button delete-button" (click)="removeSummary(i)"
+                                [disabled]="summaryArray.length <= 1">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-field full-width">
+                                <label [for]="'summary-data-' + i">Card Content</label>
+                                <textarea [id]="'summary-data-' + i" formControlName="cardData"
+                                    placeholder="Enter card content" rows="2"></textarea>
+                                <div class="error-message"
+                                    *ngIf="summaryControl.get('cardData')?.invalid && summaryControl.get('cardData')?.touched">
+                                    <span *ngIf="summaryControl.get('cardData')?.hasError('required')">Card content
+                                        is
+                                        required</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="add-button" (click)="addSummary()">
+                        <span class="material-icons">add</span> Add Summary Card
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Parts Section -->
+        <div class="form-section">
+            <h2>Article Content</h2>
+            <div class="form-content">
+                <div formArrayName="parts" cdkDropList (cdkDropListDropped)="dropPart($event)">
+                    <div *ngFor="let partControl of partsArray.controls; let i = index" [formGroupName]="i"
+                        class="dynamic-item-large part-item" cdkDrag>
+                        <div class="part-header">
+                            <div class="drag-handle" cdkDragHandle>
+                                <span class="material-icons">drag_indicator</span>
+                            </div>
+
+                            <div class="form-field">
+                                <label [for]="'part-type-' + i">Content Type</label>
+                                <select [id]="'part-type-' + i" formControlName="type"
+                                    (change)="onPartTypeChange(i, partControl.get('type')?.value)">
+                                    <option *ngFor="let type of contentTypes" [value]="type.value">{{ type.label }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-field">
+                                <label [for]="'part-title-' + i">Section Title</label>
+                                <input [id]="'part-title-' + i" type="text" formControlName="title"
+                                    placeholder="Enter section title">
+                                <div class="error-message"
+                                    *ngIf="partControl.get('title')?.invalid && partControl.get('title')?.touched">
+                                    <span *ngIf="partControl.get('title')?.hasError('required')">Section title is
+                                        required</span>
+                                </div>
+                            </div>
+
+                            <button type="button" class="icon-button delete-button" (click)="removePart(i)"
+                                [disabled]="partsArray.length <= 1">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+
+                        <!-- Different content types -->
+                        <div [ngSwitch]="partControl.get('type')?.value" class="part-content">
+                            <!-- Text content -->
+                            <div *ngSwitchCase="'text'">
+                                <div class="form-field full-width">
+                                    <label [for]="'part-data-' + i">Text Content</label>
+                                    <textarea [id]="'part-data-' + i" formControlName="data"
+                                        placeholder="Enter HTML content" rows="5"></textarea>
+                                    <div class="error-message"
+                                        *ngIf="partControl.get('data')?.invalid && partControl.get('data')?.touched">
+                                        <span *ngIf="partControl.get('data')?.hasError('required')">Content is
+                                            required</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Single image -->
+                            <div *ngSwitchCase="'image'" formGroupName="data">
+                                <div class="form-row">
+                                    <div class="form-field full-width">
+                                        <label [for]="'part-image-url-' + i">Image URL</label>
+                                        <input [id]="'part-image-url-' + i" type="text" formControlName="url"
+                                            placeholder="Enter image URL">
+                                        <div class="error-message"
+                                            *ngIf="partControl.get('data.url')?.invalid && partControl.get('data.url')?.touched">
+                                            <span *ngIf="partControl.get('data.url')?.hasError('required')">Image
+                                                URL is
+                                                required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row two-col">
+                                    <div class="form-field">
+                                        <label [for]="'part-image-alt-' + i">Alt Text</label>
+                                        <input [id]="'part-image-alt-' + i" type="text" formControlName="alt"
+                                            placeholder="Enter alternative text">
+                                    </div>
+                                    <div class="form-field">
+                                        <label [for]="'part-image-caption-' + i">Caption</label>
+                                        <input [id]="'part-image-caption-' + i" type="text" formControlName="caption"
+                                            placeholder="Enter caption">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Video -->
+                            <div *ngSwitchCase="'video'" formGroupName="data">
+                                <div class="form-row">
+                                    <div class="form-field full-width">
+                                        <label [for]="'part-video-url-' + i">Video URL</label>
+                                        <input [id]="'part-video-url-' + i" type="text" formControlName="url"
+                                            placeholder="Enter video URL">
+                                        <div class="error-message"
+                                            *ngIf="partControl.get('data.url')?.invalid && partControl.get('data.url')?.touched">
+                                            <span *ngIf="partControl.get('data.url')?.hasError('required')">Video
+                                                URL is
+                                                required</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field full-width">
+                                        <label [for]="'part-video-caption-' + i">Caption</label>
+                                        <input [id]="'part-video-caption-' + i" type="text" formControlName="caption"
+                                            placeholder="Enter caption">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Image List or Carousel -->
+                            <div *ngSwitchCase="'imageList'" formArrayName="data">
+                                <div cdkDropList (cdkDropListDropped)="dropImage(i, $event)">
+                                    <div *ngFor="let imageControl of getImagesArray(i).controls; let j = index"
+                                        [formGroupName]="j" class="dynamic-item" cdkDrag>
+                                        <div class="drag-handle" cdkDragHandle>
+                                            <span class="material-icons">drag_indicator</span>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-field full-width">
+                                                <label [for]="'part-image-url-' + i + '-' + j">Image URL</label>
+                                                <input [id]="'part-image-url-' + i + '-' + j" type="text"
+                                                    formControlName="url" placeholder="Enter image URL">
+                                                <div class="error-message"
+                                                    *ngIf="imageControl.get('url')?.invalid && imageControl.get('url')?.touched">
+                                                    <span *ngIf="imageControl.get('url')?.hasError('required')">Image
+                                                        URL is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row two-col">
+                                            <div class="form-field">
+                                                <label [for]="'part-image-alt-' + i + '-' + j">Alt Text</label>
+                                                <input [id]="'part-image-alt-' + i + '-' + j" type="text"
+                                                    formControlName="alt" placeholder="Enter alternative text">
+                                            </div>
+                                            <div class="form-field">
+                                                <label [for]="'part-image-caption-' + i + '-' + j">Caption</label>
+                                                <input [id]="'part-image-caption-' + i + '-' + j" type="text"
+                                                    formControlName="caption" placeholder="Enter caption">
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="icon-button delete-button"
+                                            (click)="removeImage(i, j)" [disabled]="getImagesArray(i).length <= 1">
+                                            <span class="material-icons">delete</span>
+                                        </button>
+                                    </div>
+
+                                    <button type="button" class="add-button" (click)="addImage(i)">
+                                        <span class="material-icons">add</span> Add Image
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Carousel -->
+                            <div *ngSwitchCase="'carousel'" formArrayName="data">
+                                <div cdkDropList (cdkDropListDropped)="dropImage(i, $event)">
+                                    <div *ngFor="let imageControl of getImagesArray(i).controls; let j = index"
+                                        [formGroupName]="j" class="dynamic-item" cdkDrag>
+                                        <div class="drag-handle" cdkDragHandle>
+                                            <span class="material-icons">drag_indicator</span>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-field full-width">
+                                                <label [for]="'part-carousel-url-' + i + '-' + j">Image URL</label>
+                                                <input [id]="'part-carousel-url-' + i + '-' + j" type="text"
+                                                    formControlName="url" placeholder="Enter image URL">
+                                                <div class="error-message"
+                                                    *ngIf="imageControl.get('url')?.invalid && imageControl.get('url')?.touched">
+                                                    <span *ngIf="imageControl.get('url')?.hasError('required')">Image
+                                                        URL is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row two-col">
+                                            <div class="form-field">
+                                                <label [for]="'part-carousel-alt-' + i + '-' + j">Alt Text</label>
+                                                <input [id]="'part-carousel-alt-' + i + '-' + j" type="text"
+                                                    formControlName="alt" placeholder="Enter alternative text">
+                                            </div>
+                                            <div class="form-field">
+                                                <label [for]="'part-carousel-caption-' + i + '-' + j">Caption</label>
+                                                <input [id]="'part-carousel-caption-' + i + '-' + j" type="text"
+                                                    formControlName="caption" placeholder="Enter caption">
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="icon-button delete-button"
+                                            (click)="removeImage(i, j)" [disabled]="getImagesArray(i).length <= 1">
+                                            <span class="material-icons">delete</span>
+                                        </button>
+                                    </div>
+
+                                    <button type="button" class="add-button" (click)="addImage(i)">
+                                        <span class="material-icons">add</span> Add Image
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div *ngSwitchCase="'table'" formGroupName="data">
+                                <!-- Table Columns -->
+                                <div class="table-section">
+                                    <h4>Table Columns</h4>
+                                    <div formArrayName="columns" cdkDropList
+                                        (cdkDropListDropped)="dropColumn(i, $event)">
+                                        <div *ngFor="let columnControl of getColumnsArray(i).controls; let j = index"
+                                            [formGroupName]="j" class="dynamic-item" cdkDrag>
+                                            <div class="drag-handle" cdkDragHandle>
+                                                <span class="material-icons">drag_indicator</span>
+                                            </div>
+
+                                            <div class="form-row two-col">
+                                                <div class="form-field">
+                                                    <label [for]="'part-column-key-' + i + '-' + j">Column
+                                                        Key</label>
+                                                    <input [id]="'part-column-key-' + i + '-' + j" type="text"
+                                                        formControlName="key" placeholder="Enter column key">
+                                                    <div class="error-message"
+                                                        *ngIf="columnControl.get('key')?.invalid && columnControl.get('key')?.touched">
+                                                        <span
+                                                            *ngIf="columnControl.get('key')?.hasError('required')">Column
+                                                            key is required</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-field">
+                                                    <label [for]="'part-column-label-' + i + '-' + j">Column
+                                                        Label</label>
+                                                    <input [id]="'part-column-label-' + i + '-' + j" type="text"
+                                                        formControlName="label" placeholder="Enter column label">
+                                                    <div class="error-message"
+                                                        *ngIf="columnControl.get('label')?.invalid && columnControl.get('label')?.touched">
+                                                        <span
+                                                            *ngIf="columnControl.get('label')?.hasError('required')">Column
+                                                            label is required</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="button" class="icon-button delete-button"
+                                                (click)="removeColumn(i, j)"
+                                                [disabled]="getColumnsArray(i).length <= 1">
+                                                <span class="material-icons">delete</span>
+                                            </button>
+                                        </div>
+
+                                        <button type="button" class="add-button" (click)="addColumn(i)">
+                                            <span class="material-icons">add</span> Add Column
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Table Rows -->
+                                <div class="table-section">
+                                    <h4>Table Rows</h4>
+                                    <div formArrayName="rows" cdkDropList (cdkDropListDropped)="dropRow(i, $event)">
+                                        <div *ngFor="let rowControl of getRowsArray(i).controls; let j = index"
+                                            [formGroupName]="j" class="dynamic-item table-row" cdkDrag>
+                                            <div class="drag-handle" cdkDragHandle>
+                                                <span class="material-icons">drag_indicator</span>
+                                            </div>
+
+                                            <div class="form-row row-fields">
+                                                <div class="form-field"
+                                                    *ngFor="let col of getColumnsArray(i).controls; let k = index">
+                                                    <label [for]="'part-row-' + i + '-' + j + '-' + col.value.key">{{
+                                                        col.value.label }}</label>
+                                                    <input [id]="'part-row-' + i + '-' + j + '-' + col.value.key"
+                                                        type="text" [formControlName]="col.value.key"
+                                                        [placeholder]="'Enter ' + col.value.label">
+                                                </div>
+                                            </div>
+
+                                            <button type="button" class="icon-button delete-button"
+                                                (click)="removeRow(i, j)" [disabled]="getRowsArray(i).length <= 1">
+                                                <span class="material-icons">delete</span>
+                                            </button>
+                                        </div>
+
+                                        <button type="button" class="add-button" (click)="addRow(i)">
+                                            <span class="material-icons">add</span> Add Row
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- End of part content types -->
+                        </div>
+                    </div>
+
+                    <button type="button" class="add-part-button" (click)="addPart()">
+                        <span class="material-icons">add</span> Add Content Section
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-button" [disabled]="articleForm.invalid">Create Article</button>
+                <button (click)="clearForm(formDirective)" class="cancel-button">Cancel</button>
+            </div>
+        </div>
+        <!--</div>-->
+    </form>
+</div>
+
+
+
+
+<div *ngIf="articleForm.invalid">
+    <p>Есть ошибки в форме:</p>
+    <ul>
+        <li *ngFor="let error of getInvalidControls()">
+            Поле "{{ error.path }}" - Ошибки: {{ error.errors | json }}
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,23 @@
+<div class="header">
+
+  <div class="header-right">
+    <ng-container *ngIf="isMobile">
+      <button (click)="onToggleSidebar()" class="menu-toggle">
+        <mat-icon>menu</mat-icon>
+        {{ isSidebarOpen ? 'Close' : 'Categories' }}
+      </button>
+    </ng-container>
+  </div>
+
+  <div class="logo">
+    <img src="assets\images\1.jpg" alt="Logo" />
+    <span class="app-name">ЛОГО</span>
+  </div>
+
+  <!-- Searchbar -->
+  <div *ngIf="!isMobile" class="searchbar-desktop">
+    <mat-form-field class="searchbar-desktop">
+      <input class="searchbar-desktop-input" matInput placeholder="Пошук" />
+    </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+.author-info-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5rem 1.2rem;
+
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.author-image {
+  flex: 0 0 80px;
+  margin-right: 15px;
+
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.author-name {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.author-description {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}

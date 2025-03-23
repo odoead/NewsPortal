@@ -1,0 +1,28 @@
+<div class="article-list-container">
+  <div class="article-filters">
+    <button [class.active]="currentFilter === 'default'" (click)="applyFilter('default')">
+      All
+    </button>
+    <button [class.active]="currentFilter === 'latest'" (click)="applyFilter('latest')">
+      Latest
+    </button>
+    <button [class.active]="currentFilter === 'popular'" (click)="applyFilter('popular')">
+      Most Popular
+    </button>
+
+
+
+  </div>
+
+  <h1 *ngIf="currentCategory">{{ currentCategory | titlecase }} News</h1>
+  <h1 *ngIf="!currentCategory">Latest News</h1>
+
+  <div class="articles-grid">
+    <app-article-poster-item *ngFor="let article of articles" [article]="article"></app-article-poster-item>
+  </div>
+
+  <div class="load-more">
+    <button (click)="loadMoreArticles()">Load More Articles</button>
+  </div>
+  <!-- if mobile then popular articles -->
+</div>

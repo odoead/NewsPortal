@@ -1,0 +1,57 @@
+.right-sidebar {
+  width: 300px;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-left: 1px solid #e9ecef;
+
+  h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .loading {
+    font-style: italic;
+    color: #6c757d;
+  }
+
+  .popular-articles {
+    list-style: none;
+    padding: 0;
+
+    .article-item {
+      display: flex; 
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e9ecef;
+
+      .article-image {
+        width: 80px;
+        height: 60px;
+        margin-right: 1rem;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 4px;
+        }
+      }
+
+      .article-info {
+        flex: 1;
+
+        .article-title {
+          font-size: 0.9rem;
+          margin: 0 0 0.25rem;
+        }
+
+        .article-date {
+          font-size: 0.8rem;
+          color: #6c757d;
+          margin: 0;
+        }
+      }
+    }
+  }
+}

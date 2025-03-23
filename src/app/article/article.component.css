@@ -1,0 +1,158 @@
+.article-container {
+  padding: 1rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* border: rgb(0, 0, 0) 1px solid;*/
+}
+
+.article-title {
+  line-height: 1.2;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+
+
+.article-date,
+.article-category {
+  margin-right: 1rem;
+  color: #666;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+}
+
+.tag {
+  background-color: #e9ecef;
+  color: #495057;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid;
+}
+
+.article-layout {
+  display: flex;
+  gap: 30px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.article-sidebar {
+  flex: 0 0 300px;
+
+  @media (max-width: 768px) {
+    flex: auto;
+  }
+}
+
+.article-main-content {
+  flex: 1;
+  margin: 0 auto;
+}
+
+.article-parts {
+  margin-top: 2rem;
+}
+
+.article-part {
+  margin-bottom: 2rem;
+  scroll-margin-top: 2rem;
+}
+
+.article-part-container {
+  h2 {
+    line-height: 1.2;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.text-content {
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+.image-content,
+.video-content {
+  margin-bottom: 1rem;
+
+  img,
+  iframe {
+    max-width: 100%;
+    border-radius: 4px;
+  }
+
+  iframe {
+    width: 100%;
+    height: 400px;
+  }
+}
+
+.image-caption,
+.video-caption {
+  color: #666;
+  font-style: italic;
+  margin-top: 5px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.image-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+
+  .image-item {
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+  }
+}
+
+.table-content {
+  overflow-x: auto;
+  margin-left: auto;
+  margin-right: auto;
+
+
+}
+
+.carousel-content {
+  margin-bottom: 1rem;
+
+  .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
+}
