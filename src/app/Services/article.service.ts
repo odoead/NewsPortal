@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
+import { delay, Observable, of, switchMap, throwError } from 'rxjs';
 import { Article, ArticlePoster } from '../Data/article.model';
 import { Title } from '@angular/platform-browser';
 import { query } from '@angular/animations';
@@ -10,6 +10,7 @@ import { query } from '@angular/animations';
 export class ArticleService {
   getTestArticle(): Observable<Article> {
     return of<Article>({
+      id: 228,
       title: 'Understanding Angular Components Architecture',
       image: 'assets/images/5.jpg',
       date: new Date('2025-03-09'),
@@ -140,9 +141,26 @@ export class ArticleService {
     });
   }
 
+
+  getArticleById(id: number): Observable<Article> {
+
+    return this.getTestArticle().pipe(switchMap((data) => {
+      if (data.id === id) {
+        return of(data)
+
+
+      } else {
+        return throwError(() => new Error('Article not found'));
+      }
+    }));
+  }
+
+
+
+
   private mockArticles: ArticlePoster[] = [
     {
-      id: 1111,
+      id: 228,
       name: 'Global small',
       image: 'assets/images/1.jpg',
       date: new Date('2025-02-28'),
@@ -152,7 +170,7 @@ export class ArticleService {
       previewText: 'World  small',
     },
     {
-      id: 111,
+      id: 228,
       name: 'Global Climate Summit Concludes with New Commitments Global Climatee Summit Concludes with New Commitments Global Climate Summit New',
       image: 'assets/images/2.jpg',
       date: new Date('2025-02-28'),
@@ -163,7 +181,7 @@ export class ArticleService {
         'Global Climate Summit Concludes with New CommitmentsGlobal Climate Summit Concludes with New CommitmentsGlobal Climate Summit Concludes with New Commitments Global Climate Summit Concludes with New Commitments',
     },
     {
-      id: 1,
+      id: 228,
       name: 'Global Climate Summit Concludes with New Commitments',
       image: 'assets/images/3.jpg',
       date: new Date('2025-02-28'),
@@ -174,7 +192,7 @@ export class ArticleService {
         'World leaders agreed on ambitious targets to reduce carbon emissions by 2030.',
     },
     {
-      id: 2,
+      id: 228,
       name: 'Tech Giants Announce AI Collaboration Initiative',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-01'),
@@ -185,7 +203,7 @@ export class ArticleService {
         'Major tech companies join forces to establish ethical standards for artificial intelligence development.',
     },
     {
-      id: 3,
+      id: 228,
       name: 'New Breakthrough in Quantum Computing',
       image: 'assets/images/3.jpg',
       date: new Date('2025-02-27'),
@@ -196,7 +214,7 @@ export class ArticleService {
         'Scientists achieve stable quantum entanglement at room temperature, paving way for practical applications.',
     },
     {
-      id: 4,
+      id: 228,
       name: 'Global Stock Markets Hit Record Highs',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -207,7 +225,7 @@ export class ArticleService {
         'Major indices surged following positive economic data and corporate earnings reports.',
     },
     {
-      id: 5,
+      id: 228,
       name: 'New Archaeological Discovery in Egypt',
       image: 'assets/images/3.jpg',
       date: new Date('2025-02-25'),
@@ -218,7 +236,7 @@ export class ArticleService {
         'Archaeologists uncover ancient temple complex dating back over 4,000 years.',
     },
     {
-      id: 6,
+      id: 228,
       name: 'Major Sports Championship Finals Set',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-01'),
@@ -229,7 +247,7 @@ export class ArticleService {
         'Underdog team makes surprising run to championship finals, setting up dramatic showdown.',
     },
     {
-      id: 7,
+      id: 228,
       name: 'Healthcare Reform Bill Passes Senate',
       image: 'assets/images/3.jpg',
       date: new Date('2025-02-28'),
@@ -240,7 +258,7 @@ export class ArticleService {
         'Landmark healthcare legislation moves forward after months of negotiation.',
     },
     {
-      id: 8,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed1',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -251,7 +269,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 9,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed2',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -262,7 +280,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 10,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed3',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -273,7 +291,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -284,7 +302,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -295,7 +313,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -306,7 +324,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -317,7 +335,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -328,7 +346,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -339,7 +357,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -350,7 +368,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -361,7 +379,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -372,7 +390,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -383,7 +401,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -394,7 +412,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -405,7 +423,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -416,7 +434,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -427,7 +445,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -438,7 +456,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -449,7 +467,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -460,7 +478,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -471,7 +489,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -482,7 +500,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -493,7 +511,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -504,7 +522,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -515,7 +533,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -526,7 +544,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -537,7 +555,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -548,7 +566,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -559,7 +577,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -570,7 +588,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -581,7 +599,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -592,7 +610,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -603,7 +621,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -614,7 +632,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -625,7 +643,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -636,7 +654,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -647,7 +665,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -658,7 +676,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -669,7 +687,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -680,7 +698,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -691,7 +709,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -702,7 +720,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -713,7 +731,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -724,7 +742,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -735,7 +753,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -746,7 +764,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -757,7 +775,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -768,7 +786,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -779,7 +797,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -790,7 +808,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -801,7 +819,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -812,7 +830,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -823,7 +841,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -834,7 +852,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -845,7 +863,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -856,7 +874,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -867,7 +885,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -878,7 +896,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -889,7 +907,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -900,7 +918,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -911,7 +929,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -922,7 +940,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -933,7 +951,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -944,7 +962,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -955,7 +973,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -966,7 +984,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -977,7 +995,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -988,7 +1006,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -999,7 +1017,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1010,7 +1028,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1021,7 +1039,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1032,7 +1050,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1043,7 +1061,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1054,7 +1072,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1065,7 +1083,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1076,7 +1094,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1087,7 +1105,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1098,7 +1116,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1109,7 +1127,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1120,7 +1138,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1131,7 +1149,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1142,7 +1160,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1153,7 +1171,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1164,7 +1182,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1175,7 +1193,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1186,7 +1204,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1197,7 +1215,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1208,7 +1226,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1219,7 +1237,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1230,7 +1248,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1241,7 +1259,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1252,7 +1270,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1263,7 +1281,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1274,7 +1292,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1285,7 +1303,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1296,7 +1314,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1307,7 +1325,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1318,7 +1336,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1329,7 +1347,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1340,7 +1358,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1351,7 +1369,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1362,7 +1380,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1373,7 +1391,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1384,7 +1402,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1395,7 +1413,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1406,7 +1424,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1417,7 +1435,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1428,7 +1446,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1439,7 +1457,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1450,7 +1468,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1461,7 +1479,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1472,7 +1490,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1483,7 +1501,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1494,7 +1512,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1505,7 +1523,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1516,7 +1534,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1527,7 +1545,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 13,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed4',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1538,7 +1556,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 11,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed5',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),
@@ -1549,7 +1567,7 @@ export class ArticleService {
         'Meteorologists document unprecedented atmospheric patterns linked to changing climate conditions.',
     },
     {
-      id: 12,
+      id: 228,
       name: 'Record-Breaking Weather Phenomenon Observed6',
       image: 'assets/images/3.jpg',
       date: new Date('2025-03-02'),

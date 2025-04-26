@@ -6,11 +6,10 @@ import { CreateArticleComponent } from './create-article/create-article.componen
 
 export const routes: Routes = [
   { path: '*', redirectTo: '' },
-  //{ path: '', component: ArticleListComponent },
-  { path: '', component: ArticleComponent },
-  //{ path: '', component: CreateArticleComponent },
+  { path: '', component: ArticleListComponent },
+  { path: 'news/:id', component: ArticleComponent },
+  { path: 'create', component: CreateArticleComponent },
 
-  // { path: 'category/:slug', component: ArticleListComponent },
 
   { path: 'search', component: SearchComponent },
   { path: 'category/:category', component: SearchComponent },

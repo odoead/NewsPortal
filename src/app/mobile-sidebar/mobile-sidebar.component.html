@@ -10,10 +10,12 @@
     <div class="menu-content">
       <mat-form-field appearance="outline" class="search-bar">
         <mat-label>поиск</mat-label>
-        <input matInput type="text" placeholder="Поиск" />
-        <button mat-icon-button matSuffix>
-          <mat-icon>search</mat-icon>
-        </button>
+        <input matInput type="text" placeholder="Поиск" [(ngModel)]="searchQuery" (keyup.enter)="executeSearch()" />
+        <span matSuffix>
+          <button mat-icon-button class="input-button" (click)="executeSearch()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </span>
       </mat-form-field>
 
       <ul class="category-list">

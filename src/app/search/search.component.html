@@ -16,14 +16,15 @@
       &lt;
     </button>
 
-    <ng-container *ngFor="let page of pages; let i = index">
-      <span *ngIf="i > 0 && pages[i] !== pages[i - 1] + 1">...</span>
-      <button [class.active]="page === currentPage" (click)="goToPage(page)">
-        {{ page }}
+    <ng-container *ngFor="let item of paginationItems">
+      <button *ngIf="isNumber(item)" [class.active]="item === currentPage" (click)="goToPage(item)"
+        class="pagination-number">
+        {{ item }}
       </button>
+      <span *ngIf="!isNumber(item)" class="pagination-ellipsis">{{ item }}</span>
     </ng-container>
 
-    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="pagination-nav">
       &gt;
     </button>
   </div>

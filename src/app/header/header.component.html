@@ -1,23 +1,30 @@
 <div class="header">
+  <div class="header-container">
 
-  <div class="header-right">
-    <ng-container *ngIf="isMobile">
-      <button (click)="onToggleSidebar()" class="menu-toggle">
-        <mat-icon>menu</mat-icon>
-        {{ isSidebarOpen ? 'Close' : 'Categories' }}
-      </button>
-    </ng-container>
-  </div>
+    <div class="logo">
+      <img src="assets/images/1.jpg" alt="Logo" />
+      <span class="app-name">ЛОГО</span>
+    </div>
 
-  <div class="logo">
-    <img src="assets\images\1.jpg" alt="Logo" />
-    <span class="app-name">ЛОГО</span>
-  </div>
+    <!--desktop -->
+    <div *ngIf="!isMobile" class="searchbar-wrapper">
+      <mat-form-field class="searchbar">
+        <input matInput placeholder="Пошук" [(ngModel)]="searchQuery" (keyup.enter)="executeSearch()" />
+        <button mat-icon-button matSuffix (click)="executeSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
 
-  <!-- Searchbar -->
-  <div *ngIf="!isMobile" class="searchbar-desktop">
-    <mat-form-field class="searchbar-desktop">
-      <input class="searchbar-desktop-input" matInput placeholder="Пошук" />
-    </mat-form-field>
+    <!-- mobile -->
+    <div class="header-actions">
+      <ng-container *ngIf="isMobile">
+        <button (click)="onToggleSidebar()" class="menu-toggle">
+          <mat-icon>menu</mat-icon>
+          {{ isSidebarOpen ? 'Close' : 'Categories' }}
+        </button>
+      </ng-container>
+    </div>
+
   </div>
 </div>

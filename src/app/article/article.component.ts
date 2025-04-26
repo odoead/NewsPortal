@@ -7,6 +7,7 @@ import { TableOfContentsComponent } from '../table-of-contents/table-of-contents
 import { ArticleSummaryComponent } from '../article-summary/article-summary.component';
 import { MatTableModule } from '@angular/material/table';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-article',
   standalone: true,
@@ -14,7 +15,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     CommonModule,
     AuthorInfoComponent,
     TableOfContentsComponent,
-    ArticleSummaryComponent, MatTableModule
+    ArticleSummaryComponent, MatTableModule,RouterModule
   ],
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css'],
@@ -22,22 +23,21 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class ArticleComponent {
   article!: Article;
   activeSection: string = '';
-
   displayedColumns: string[] = [];
 
-  constructor(private articleService: ArticleService, private elRef: ElementRef, private sanitizer: DomSanitizer) { }
+  constructor(private route: ActivatedRoute,private articleService: ArticleService, private elRef: ElementRef, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-    this.articleService.getTestArticle().subscribe({
+    const id = +this.route.snapshot.paramMap.get('id')!;
+    this.articleService.getArticleById(id).subscribe({
       next: (data) => {
         this.article = data;
 
-        if (this.article && this.article.tableOfContents && this.article.tableOfContents.length > 0) {
+        if (this.article && this.article.tableOfContents?.length) {
           this.activeSection = this.article.tableOfContents[0];
         }
 
         const tablePart = this.article?.parts?.find(part => part.type === 'table');
-
         if (tablePart?.data?.columns) {
           this.displayedColumns = tablePart.data.columns.map((q: any) => q.key);
         }
@@ -65,7 +65,6 @@ export class ArticleComponent {
     return this.activeSection === section;
   }
 
-  // Methods moved from ArticlePartComponent
   getSafeUrl(url: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }

@@ -43,9 +43,53 @@
 .search-bar {
   width: 100%;
   margin-bottom: 1rem;
+  position: relative;
+  display: flex;
 
+
+  /* Remove padding that might push button away */
+  .mat-form-field-flex {
+    padding-right: 0 !important;
+  }
+
+  /*this container is holdinf the button */
+  .mat-form-field-suffix {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    align-items: stretch;
+  }
 
 }
+
+.input-button {
+  background-color: #00a046;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  height: 100%;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  .mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
+
+
+
+
 
 .category-list {
   list-style: none;

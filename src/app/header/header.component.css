@@ -1,37 +1,63 @@
 .header {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 1rem;
   background-color: #2c3e50;
   color: white;
+  padding: 1rem;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-
-  a {
-    color: white;
-    text-decoration: none;
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+.logo img {
+  max-height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.app-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.searchbar-wrapper {
+  flex: 1;
+  max-width: 500px;
+  align-items: center;
+}
+
+.searchbar {
+flex-grow: 1;
+  width: 100%;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
 
 .menu-toggle {
   background: transparent;
   border: 1px solid white;
   color: white;
   padding: 0.5rem 1rem;
-  cursor: pointer;
   border-radius: 4px;
-}
-
-.searchbar-desktop {
-  width: 100%;
-}
-
-.searchbar-desktop-input {
-  width: 100%;
-
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

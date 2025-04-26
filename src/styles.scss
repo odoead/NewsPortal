@@ -40,9 +40,7 @@ body {
   color: #6c757d;
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
-  /* Mobile styles */
   .app-container.mobile {
     .content-container {
       flex-direction: column;

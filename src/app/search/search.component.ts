@@ -26,8 +26,7 @@ export class SearchComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 5;
   totalPages: number = 1;
-  pages: number[] = [];
-
+  paginationItems: (number | string)[] = [];
   /**
    *
    */
@@ -58,6 +57,10 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  isNumber(item: string | number): item is number {
+    return typeof item === 'number';
+  }
+
   loadArticlesBySearch() {
     if (this.searchQuery === '') {
       return;
@@ -67,10 +70,9 @@ export class SearchComponent implements OnInit {
       .countSearchArticles(this.searchQuery)
       .subscribe((total) => {
         this.totalPages = Math.ceil(total / this.pageSize);
-        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+        //this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
         //this.pages = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-        this.updatePages()
-
+        this.generatePaginationItems();
       });
 
     this.articleService
@@ -92,54 +94,67 @@ export class SearchComponent implements OnInit {
     this.articleService.countArticlesByCategory(this.currentCategory).subscribe((total) => {
       this.totalPages = Math.ceil(total / this.pageSize);
       //this.pages = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-      this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
-      this.updatePages()
-
+      //this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+      this.generatePaginationItems();
     });
   }
 
-  updatePages() {
-    const currentPage = this.currentPage;
-    const totalPages = this.totalPages;
+  generatePaginationItems(): void {
+    const items: (number | string)[] = [];
 
-    if (totalPages <= 10) {
-      this.pages = Array.from({ length: totalPages }, (_, i) => i + 1);
-      return;
+    // Always show first page
+    items.push(1);
+
+    // Logic for showing pagination based on current page
+    if (this.totalPages <= 7) {
+      // Show all pages if 7 or fewer
+      for (let i = 2; i <= this.totalPages; i++) {
+        items.push(i);
+      }
+    } else {
+      // Show ellipsis and selective pages
+      if (this.currentPage > 3) {
+        items.push('...');
+      }
+
+      // Pages around current page
+      const startPage = Math.max(2, this.currentPage - 1);
+      const endPage = Math.min(this.totalPages - 1, this.currentPage + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        items.push(i);
+      }
+
+      if (this.currentPage < this.totalPages - 2) {
+        items.push('...');
+      }
+
+      // Always show last page
+      if (this.totalPages > 1) {
+        items.push(this.totalPages);
+      }
     }
 
-    const startPages = [1, 2, 3, 4, 5];
-    const endPages = [totalPages - 1, totalPages];
-
-    const middlePages = [];
-    for (let i = Math.max(this.startPagination + 1, currentPage - this.betweenSelectedPagination);
-      i <= Math.min(totalPages - this.endPagination, currentPage + this.betweenSelectedPagination); i++) {
-      middlePages.push(i);
-    }
-
-    this.pages = [...startPages];
-
-
-
-    this.pages.push(...middlePages);
-
-
-    this.pages.push(...endPages);
+    this.paginationItems = items;
   }
 
 
 
 
 
-  goToPage(page: number) {
-    if (page > this.totalPages) {
+  goToPage(page: number): void {
+    if (page < 1 || page > this.totalPages || page === this.currentPage) {
       return;
     }
 
     this.currentPage = page;
+    
     if (this.currentMode === 'search') {
       this.loadArticlesBySearch();
     } else {
       this.loadArticlesByCategory();
     }
   }
+
+
 }

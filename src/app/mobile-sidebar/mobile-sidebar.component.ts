@@ -9,6 +9,7 @@ import { CategoryService } from '../Services/category.service';
 import { Category } from '../Data/Category';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-mobile-sidebar',
@@ -20,7 +21,7 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
-    RouterModule,
+    RouterModule, FormsModule
   ],
   templateUrl: './mobile-sidebar.component.html',
   styleUrls: ['./mobile-sidebar.component.css'],
@@ -30,6 +31,8 @@ export class SidebarComponent implements OnInit {
   @Input() isSidebarOpen: boolean = false;
   @Output() sidebarToggle = new EventEmitter<void>();
   categories: Category[] = [];
+  searchQuery: string = '';
+
 
   constructor(
     private categoryService: CategoryService,
@@ -62,4 +65,18 @@ export class SidebarComponent implements OnInit {
 
     console.log('Navigating to category:', slug);
   }
+
+  executeSearch() {
+    if (this.searchQuery && this.searchQuery.trim().length > 2) {
+      this.router.navigate(['/search'], {
+        queryParams: { query: this.searchQuery.trim() }
+      });
+
+      if (this.isMobile && this.isSidebarOpen) {
+        this.closeSidebar();
+      }
+    }
+  }
+
+   
 }
