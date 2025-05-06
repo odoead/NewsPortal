@@ -1,0 +1,7 @@
+<mat-form-field appearance="outline" class="search-bar" [ngClass]="{ 'mobile': isMobile, 'desktop': !isMobile }">
+    <mat-label>Пошук</mat-label>
+    <input matInput placeholder="Пошук" [(ngModel)]="searchQuery" (keyup.enter)="executeSearch()" />
+    <button mat-icon-button matSuffix (click)="executeSearch()">
+        <mat-icon>search</mat-icon>
+    </button>
+</mat-form-field>

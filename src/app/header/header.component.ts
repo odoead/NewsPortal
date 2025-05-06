@@ -5,13 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SearchComponent } from "../search/search.component";
+import { SearchBarComponent } from "../search-bar/search-bar.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, CommonModule, MatFormFieldModule, MatInputModule,FormsModule],
+  imports: [MatToolbarModule, MatIconModule, CommonModule, MatFormFieldModule, MatInputModule, FormsModule, RouterModule,
+     SearchComponent, SearchBarComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })

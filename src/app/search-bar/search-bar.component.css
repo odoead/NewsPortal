@@ -1,0 +1,27 @@
+.search-bar {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    .mobile {
+        .mat-form-field-suffix {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        button {
+            background-color: #00a046;
+            color: white;
+            border-radius: 0 4px 4px 0;
+            height: 100%;
+            padding: 0 1rem;
+        }
+    }
+
+    .desktop {
+        max-width: 500px;
+    }
+}

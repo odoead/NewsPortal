@@ -10,6 +10,7 @@ import { Category } from '../Data/Category';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SearchBarComponent } from "../search-bar/search-bar.component";
 
 @Component({
   selector: 'app-mobile-sidebar',
@@ -21,8 +22,9 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
-    RouterModule, FormsModule
-  ],
+    RouterModule, FormsModule,
+    SearchBarComponent
+],
   templateUrl: './mobile-sidebar.component.html',
   styleUrls: ['./mobile-sidebar.component.css'],
 })
