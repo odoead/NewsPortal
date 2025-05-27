@@ -1,4 +1,24 @@
 # NewsPortal
+NewsPortal is a responsive web application built with Angular.
+# Link
+https://kind-island-0a3da340f.6.azurestaticapps.net/create
+# Features
+Latest News Feed
+
+Search Functionality
+
+Application simulates API calls
+
+Responsive design with slider sidebar in case of mobile version
+
+Category Filtering
+
+Article Details View
+
+Higly customizable dynamic article creation form with form validation
+
+Usage of Angular Material components
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
 
